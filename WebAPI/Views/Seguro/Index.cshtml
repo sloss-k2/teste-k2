@@ -1,0 +1,25 @@
+﻿<div class="jumbotron">
+    <h1>Seguro</h1>
+    <p class="lead">Teste - K2.</p>
+</div>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Seguro registrado com sucesso</h2>
+<div>
+    <span><b>Nome:</b> @ViewBag.Segurado.Nome</span><br />
+    <span><b>CPF:</b> @ViewBag.Segurado.Cpf</span><br />
+    <br />
+    <span><b>Marca/Modelo:</b> @ViewBag.Seguro.MarcaModelo</span><br />
+    <span><b>Valor do veículo:</b> @ViewBag.Seguro.ValorVeiculo</span><br />
+    <span><b>Valor do seguro:</b> @ViewBag.Seguro.ValorSeguro</span><br />
+</div>
+<div style="margin-top: 10px;">
+    <input action="action"
+           onclick="window.history.go(-1); return false;"
+           type="submit"
+           value="Voltar" />
+</div>
+

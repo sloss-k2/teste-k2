@@ -1,0 +1,46 @@
+﻿<div class="jumbotron">
+    <h1>Seguro</h1>
+    <p class="lead">Teste - K2.</p>
+</div>
+<div class="row">
+    <center>
+        <form id="form1" method="POST" action="/Seguro" class="form">
+            <label for="cpf">CPF:</label>
+            <br /><input type="text" id="cpf" name="cpf" value="88855577799" />
+
+            <br /><label for="marcaModelo">Marca/Modelo:</label>
+            <br /><input type="text" id="marcaModelo" name="marcaModelo" />
+
+            <br /><label for="valor">Valor do veículo:</label>
+            <br /><input type="text" id="valor" name="valor" />
+
+            <br /><input type="submit" value="submit" />
+        </form>
+    </center>
+</div>
+<div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" });
+</div>
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.min.js"></script>
+<script>
+    // just for the demos, avoids form submit
+    //jQuery.validator.setDefaults({
+    //    debug: true,
+    //    success: "valid"
+    //});
+    $("#form1").validate({
+        rules: {
+            cpf: {
+                required: true
+            },
+            marcaModelo: {
+                required: true
+            },
+            valor: {
+                required: true
+            }
+        }
+    });
+</script>
