@@ -10,6 +10,7 @@ using WebAPI.Properties;
 using WebAPI.Services;
 using Oracle.ManagedDataAccess.Client;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace WebAPI.Controllers
 {
@@ -45,10 +46,11 @@ namespace WebAPI.Controllers
         private void GravaSeguro(Seguro seguro)
         {
             string connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+            string dbSchema = GetSchemaName(connectionString);
             using (OracleConnection conn = new OracleConnection(connectionString))
             {
                 conn.Open();
-                string cmdText = $"INSERT INTO TESTEK2.SEGURO (ID, SEGURADOID, MARCAMODELO, VALORVEICULO, VALORSEGURO) VALUES ('{Guid.NewGuid()}', {seguro.IdSegurado}, '{seguro.MarcaModelo}', {seguro.ValorVeiculo}, {seguro.ValorSeguro})";
+                string cmdText = $"INSERT INTO {dbSchema}.SEGURO (ID, SEGURADOID, MARCAMODELO, VALORVEICULO, VALORSEGURO) VALUES ('{Guid.NewGuid()}', {seguro.IdSegurado}, '{seguro.MarcaModelo}', {seguro.ValorVeiculo}, {seguro.ValorSeguro})";
                 using (OracleCommand cmd = new OracleCommand(cmdText, conn))
                 {
                     int insert = cmd.ExecuteNonQuery();
@@ -57,6 +59,12 @@ namespace WebAPI.Controllers
                 conn.Close();
             }
 
+        }
+
+        private string GetSchemaName(string connectionString)
+        {
+            var match = Regex.Match(connectionString, "User Id=(testek2test);");
+            return match.Groups[1].Value.ToUpper();
         }
 
         private Segurado GetSegurado(string cpf)
